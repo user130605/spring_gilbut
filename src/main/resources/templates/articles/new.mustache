@@ -1,0 +1,22 @@
+{{>layouts/header}}
+
+<!--
+//입력한 정보를 어디에 보낼지는 action, 어떻게 보낼지는 method 속성으로 설정한다.
+// action="/articles/create" : localhost:8080/articles/create 페이지로 폼 데이터를 보낸다는 의미
+// method="post" : 속성 값으로 get, post 2가지를 설정할 수 있다. 두 방식의 차이는 7.3.1 HTTP 메서드에서 알아보겠다.
+
+// DTO의 필드명과 동일한 이름을 name의 속성 값으로 써 주면 입력 폼에서 작성한 두 데이터가 DTO의 해당 필드와 연결된다.
+-->
+<form class="container" action="/articles/create" method="post">
+    <div class="mb-3">
+        <label class="form-label">제목</label>
+        <input type="text" class="form-control" name="title">   <!-- name="title" : DTO의 title 필드와 연결 -->
+    </div>
+    <div class="mb-3">
+        <label class="form-label">내용</label>
+        <textarea class="form-control" rows="3" name="content"></textarea> <!-- name="title" : DTO의 content 필드와 연결 -->
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{{>layouts/footer}}

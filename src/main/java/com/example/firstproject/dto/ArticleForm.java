@@ -22,7 +22,7 @@ public class ArticleForm {
     }
 
     // 폼 데이터를 담은 DTO 객체를 엔티티로 반환
-    // 전달값은 Articl 클래스의 생성자 형식에 맞게 작성하면 된다.
+    // 전달값은 Article 클래스의 생성자 형식에 맞게 작성하면 된다.
     public Article toEntity() {
         return new Article(null, title, content);
     }

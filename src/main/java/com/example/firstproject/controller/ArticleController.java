@@ -6,22 +6,30 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.example.firstproject.dto.ArticleForm;
 import com.example.firstproject.repository.ArticleRepository;
 
-@Slf4j  //로깅 기능을 위한 어노테이션 추가
+import java.util.List;
+
+@Slf4j //로깅 기능을 위한 어노테이션 추가
 @Controller
 public class ArticleController {
     private static final Logger log = LoggerFactory.getLogger(ArticleController.class);
+
     @Autowired  // 스프링 부트가 미리 생성해 놓은 리파지터리 객체 주입
     private ArticleRepository articleRepository;
+
+    // 뷰 페이지를 보여주는 메서드
     @GetMapping("/articles/new")
     public String newArticleForm(){
         return "articles/new";
     }
 
+    // 뷰 페이지에서 전송한 폼 데이터를 받는 메서드
     // 뷰 페이지에서 폼 데이터를 post 방식으로 전송했으므로 컨트롤러에서 받을 때도 @PostMapping()으로 받는다.
     // @PostMapping("/articles/create") : new.mustache에서 <form> 태그에 action="/articles/create"로 설정했으므로
     @PostMapping("/articles/create")
@@ -41,5 +49,30 @@ public class ArticleController {
         log.info(saved.toString());
         //System.out.println(saved.toString());   // article이 DB에 잘 저장된느지 확인 출력
         return "";
+    }
+
+    @GetMapping("/articles/{id}")
+    public String show(@PathVariable Long id, Model model){  // 매개변수로 id 받아 오기
+        log.info("id = " + id);
+        // 1. id를 조회해 데이터 가져오기
+        Article articleEntity = articleRepository.findById(id).orElse(null);
+
+        // 2. 모델에 데이터 등록하기
+        model.addAttribute("article", articleEntity);
+
+        // 3. 뷰 페이지 반환하기
+        return "articles/show";
+    }
+
+    @GetMapping("/articles")
+    public String index(Model model){
+        // 1. 모든 데이터 가져오기
+        List<Article> articleEntityList = articleRepository.findAll();
+
+        // 2. 모델에 데이터 등록하기
+        model.addAttribute("articleList", articleEntityList);
+
+        // 3. 뷰  페이지 설정하기
+        return "articles/index";
     }
 }

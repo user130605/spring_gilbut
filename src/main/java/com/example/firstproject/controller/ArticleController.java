@@ -18,8 +18,6 @@ import java.util.List;
 @Slf4j //로깅 기능을 위한 어노테이션 추가
 @Controller
 public class ArticleController {
-    private static final Logger log = LoggerFactory.getLogger(ArticleController.class);
-
     @Autowired  // 스프링 부트가 미리 생성해 놓은 리파지터리 객체 주입
     private ArticleRepository articleRepository;
 
@@ -47,8 +45,8 @@ public class ArticleController {
         // 2. 리파지터리로 엔티티를 DB에 저장
         Article saved = articleRepository.save(article);    // article 엔티티를 저장해 saved 객체에 반환
         log.info(saved.toString());
-        //System.out.println(saved.toString());   // article이 DB에 잘 저장된느지 확인 출력
-        return "";
+        //System.out.println(saved.toString());   // article이 DB에 잘 저장됐는지 확인 출력
+        return "redirect:/articles/"+saved.getId();
     }
 
     @GetMapping("/articles/{id}")

@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -13,6 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor  // 기본 생성자 추가 어노테이션
 @ToString
 @Entity
+@Getter
 public class Article {
     @Id // 엔티티의 대푯값 지정
     @GeneratedValue // 자동 생성 기능 추가(숫자가 자동으로 매겨짐/대푯값을 자동으로 생성하게 한다.)

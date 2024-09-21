@@ -8,7 +8,7 @@
             name="Comment.findByNickname"
             result-class="com.example.firstproject.entity.Comment">
         <query>
-            <![CDATA[[
+            <![CDATA[
                 SELECT * FROM comment WHERE nickname = :nickname
             ]]>
         </query>
